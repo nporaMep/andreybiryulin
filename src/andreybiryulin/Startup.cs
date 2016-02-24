@@ -6,19 +6,33 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using AndreyBiryulin.ViewModels;
 
-namespace andreybiryulin
+namespace AndreyBiryulin
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services) => services
-            .AddMvc();
-        
+            .AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.Formatting = Formatting.Indented)
+            .Services
+            .AddScoped<RoutingInfo>();
+
         public void Configure(IApplicationBuilder app) => app
             .UseIISPlatformHandler()
             .UseStaticFiles()
-            .UseMvcWithDefaultRoute();
-        
+            .UseDeveloperExceptionPage()
+            .UseMvc(routes => routes
+                .MapRoute(
+                    "area",
+                    "{area:exists}/{controller}/{action}",
+                    new { controller = "Home", action = "Index" })
+                .MapRoute(
+                    "actions",
+                    "{controller}/{action}",
+                    new { controller = "Home", action = "Index" })
+            );
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

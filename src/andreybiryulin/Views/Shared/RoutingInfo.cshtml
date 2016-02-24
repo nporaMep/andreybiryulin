@@ -1,0 +1,77 @@
+﻿@model RoutingInfo
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Default URL</th>
+        <td>@Model.DefaultURL</td>
+    </tr>
+    <tr>
+        <th>Actual URL</th>
+        <td>@Model.ActualURL</td>
+    </tr>
+    <tr>
+        <th>Controller.Action</th>
+        <td>@string.Concat(@Model.Controller, ".", @Model.Action)</td>
+    </tr>
+    <tr>
+        <th>Display name</th>
+        <td>@Model.DisplayName</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Route name</th>
+        <td>@Model.RouteName</td>
+    </tr>
+    <tr>
+        <th>Route Values</th>
+        <td>
+            @foreach (var routeValue in Model.RouteValues) {
+                <div>@routeValue</div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Route Contraints</th>
+        <td>
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>Key Handling</th>
+                    <th>Route Key</th>
+                    <th>Route Value</th>
+                </tr>
+                @foreach (var routeContraint in Model.Constraints) {
+                    <tr>
+                        <td>@routeContraint.KeyHandling</td>
+                        <td>@routeContraint.RouteKey</td>
+                        <td>@routeContraint.RouteValue</td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <th>Model State</th>
+        <td>
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>Key</th>
+                    <th>Raw Value</th>
+                    <th>Value attempted</th>
+                </tr>
+                @foreach (var modelEntry in Model.ModelState) {
+                    <tr>
+                        <td>@modelEntry.Key</td>
+                        <td>@modelEntry.Value.RawValue</td>
+                        <td>@modelEntry.Value.AttemptedValue</td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <th>Link</th>
+        <td>@Model.Link</td>
+    </tr>
+</table>

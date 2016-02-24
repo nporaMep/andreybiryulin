@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "andreybiryulin", "src\andreybiryulin\andreybiryulin.xproj", "{C5BF87E5-8123-493D-A976-A904E4994ED1}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AndreyBiryulin", "src\AndreyBiryulin\AndreyBiryulin.xproj", "{C5BF87E5-8123-493D-A976-A904E4994ED1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,6 +10,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    @RenderSection("styles", false)
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -27,8 +28,11 @@
             </div>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a asp-action="Index" asp-controller="Home">Home</a>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("Home", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("RoutingDefault", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="RoutingDefault" asp-action="Index">Routing</a>
                     </li>
                 </ul>
             </div>

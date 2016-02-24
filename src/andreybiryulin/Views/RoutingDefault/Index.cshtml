@@ -1,0 +1,342 @@
+﻿<h1>
+    Routing
+</h1>
+<h2>Routing settings:</h2>
+<row>
+    <div class="col-md-6">
+        <pre>
+.MapRoute("area",
+    "{area:exists}/{controller}/{action}",
+    new { controller = "Home", action = "Index" })
+</pre>
+    </div>
+    <div class="col-md-6">
+        <pre>
+.MapRoute("actions",
+    "{controller}/{action}",
+    new { controller = "Home", action = "Index" })
+</pre>
+    </div>
+    <div class="clearfix"></div>
+</row>
+
+<div>
+    <h3>Default routing</h3>
+    <pre>public class RoutingDefaultController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("Other", "RoutingDefault", null)</td>
+            <td>public IActionResult Other()</td>
+            <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;Other&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingDefault" asp-action="Other">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("OptionalParam", "RoutingDefault", null)</td>
+           <td>public IActionResult OptionalParam(int id)</td>
+            <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalParam&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingDefault" asp-action="OptionalParam">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("OptionalParam", "RoutingDefault", new { id = 999 })</td>
+            <td>public IActionResult OptionalParam(int id)</td>
+            <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalParam&quot; asp-route-id=&quot;999&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingDefault" asp-action="OptionalParam" asp-route-id="999">Link</a></td>
+      </tr>
+        <tr>
+            <td>@Url.Action("OptionalMultipleParams", "RoutingDefault", new { id = 999, anotherId = 555 })</td>
+            <td>public IActionResult OptionalMultipleParams(int id, int anotherId)</td>
+            <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalMultipleParams&quot; asp-route-id=&quot;999&quot; asp-route-anotherId=&quot;555&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingDefault" asp-action="OptionalMultipleParams" asp-route-id="999" asp-route-anotherId="555">Link</a></td>
+      </tr>
+        <tr>
+            <td>@Url.Action("OptionalMultipleParams", "RoutingDefault", new { anotherId = 555 })</td>
+            <td>public IActionResult OptionalMultipleParams(int id, int anotherId)</td>
+            <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalMultipleParams&quot; asp-route-anotherId=&quot;555&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingDefault" asp-action="OptionalMultipleParams" asp-route-anotherId="555">Link</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Attributed actions</h3>
+    <pre>public class RoutingActionController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("NotDefaultIndex", "RoutingAction", null)</td>
+            <td>[Route("[controller]")]<br />
+public IActionResult NotDefaultIndex()</td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;NotDefaultIndex&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="NotDefaultIndex">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("ReroutedToAnotherPath", "RoutingAction", null)</td>
+            <td>[Route("AnotherPath/AnotherAction")]<br />
+public IActionResult ReroutedToAnotherPath()</td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;ReroutedToAnotherPath&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="ReroutedToAnotherPath">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("MultiplePaths", "RoutingAction", null)</td>
+            <td>[Route("[controller]/Path1")]<br />
+[Route("[controller]/Path2")]<br />
+public IActionResult MultiplePaths()</td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;MultiplePaths&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="MultiplePaths">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("MandatoryParam", "RoutingAction", new { mandatoryParam = "my param text" })</td>
+            <td>[Route("[controller]/[action]/{mandatoryParam}")]<br />
+public IActionResult MandatoryParam(string mandatoryParam)</td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;MandatoryParam&quot; asp-route-mandatoryParam=&quot;my param text&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="MandatoryParam" asp-route-mandatoryParam="my param text">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("GreedyParam", "RoutingAction", new { greedyParam = "my/greedy/param" })</td>
+            <td>[Route("[controller]/[action]/{*greedyParam}")]<br />
+public IActionResult GreedyParam(string greedyParam)</td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;GreedyParam&quot; asp-route-greedyParam=&quot;my/greedy/param&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="GreedyParam" asp-route-greedyParam="my/greedy/param">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("NestedParameters", "RoutingAction", new { parentId = 5, childId = 555 })</td>
+            <td>
+                [Route("[controller]/[action]/{parentId}/ChildEntity1/{childId}")]<br />
+                public IActionResult NestedParameters(int parentId, int childId)
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;NestedParameters&quot; asp-route-parentId=&quot;5&quot; asp-route-childId=&quot;555&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAction" asp-action="NestedParameters" asp-route-parentId="5" asp-route-childId="555">Link</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Route at controller as prefix</h3>
+    <pre>[Route("RoutingPrefixHeader/[action]")]
+public class RoutingPrefixHeaderController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("PrefixedMandatoryParam", "RoutingPrefixHeader", new { id = 5 })</td>
+            <td>
+                [Route("{id}")]<br />
+                public IActionResult PrefixedMandatoryParam(int id)
+            </td>
+            <td>
+                &lt;a asp-controller=&quot;RoutingPrefixHeader&quot; asp-action=&quot;PrefixedMandatoryParam&quot; asp-route-id=&quot;5&quot;&gt;Link&lt;/a&gt;
+            </td>
+            <td>
+                <a asp-controller="RoutingPrefixHeader" asp-action="PrefixedMandatoryParam" asp-route-id="5">Link</a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Url.Action("RenamedAction", "RoutingPrefixHeader", new { id = 5 })</td>
+            <td>
+                [Route("/AnotherRoute/RenamedActionWithHeaderAttribute")]<br />
+                public IActionResult RenamedAction()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingPrefixHeader&quot; asp-action=&quot;RenamedAction&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingPrefixHeader" asp-action="RenamedAction">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("ExtendedAction", "RoutingPrefixHeader", new { val = 5, subval = "someval" })</td>
+            <td>
+                [Route("{val}/child/{subval}")]<br />
+                public IActionResult ExtendedAction(int val, string subval)
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingPrefixHeader&quot; asp-action=&quot;ExtendedAction&quot; asp-route-val=&quot;550&quot; asp-route-subval=&quot;somestring&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingPrefixHeader" asp-action="ExtendedAction" asp-route-val="550" asp-route-subval="somestring">Link</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Route at controller renaming route</h3>
+    <pre>[Route("RenamedRoute/[action]")]
+public class RoutingRenamingHeaderController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("Index", "RoutingRenamingHeader")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>
+                &lt;a asp-controller=&quot;RoutingRenamingHeader&quot;&gt;Link&lt;/a&gt;
+            </td>
+            <td>
+                <a asp-controller="RoutingRenamingHeader">Link</a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Url.Action("Other", "RoutingRenamingHeader")</td>
+            <td>
+                public IActionResult Other()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingRenamingHeader&quot; asp-action=&quot;Other&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingRenamingHeader" asp-action="Other">Link</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Route at controller defining mandatory parameter for all actions</h3>
+    <pre>[Route("RoutingMandatoryControllerParam/[action]/{id}")]
+public class RoutingMandatoryControllerParamController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("Index", "RoutingMandatoryControllerParam", new { id = 5 })</td>
+            <td>
+                [Route("RoutingMandatoryControllerParam/[action]/{id}")]<br />
+                public class RoutingMandatoryControllerParamController : Controller
+            </td>
+            <td>
+                &lt;a asp-controller=&quot;RoutingMandatoryControllerParam&quot; asp-route-id=&quot;5&quot;&gt;Link&lt;/a&gt;
+            </td>
+            <td>
+                <a asp-controller="RoutingMandatoryControllerParam" asp-route-id="5">Link</a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Url.Action("Other", "RoutingMandatoryControllerParam", new { id = 25 })</td>
+            <td>
+                public IActionResult Other(int id)
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingMandatoryControllerParam&quot; asp-action=&quot;Other&quot; asp-route-id=&quot;25&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingMandatoryControllerParam" asp-action="Other" asp-route-id="25">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("RemovedMandatoryParam", "RoutingMandatoryControllerParam", null)</td>
+            <td>
+                [Route("/[controller]/[action]")]<br />
+                public IActionResult RemovedMandatoryParam()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingMandatoryControllerParam&quot; asp-action=&quot;RemovedMandatoryParam&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingMandatoryControllerParam" asp-action="RemovedMandatoryParam">Link</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Named route at controller</h3>
+    <pre>[Route("RoutingNamed", Name ="NamedController1")]
+public class RoutingNamedController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.RouteUrl("NamedController1")</td>
+            <td>
+                [HttpGet]<br />
+                public IActionResult Get()<br />
+            </td>
+            <td>&lt;a asp-route=&quot;NamedController1&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-route="NamedController1">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.RouteUrl("NamedController1")</td>
+            <td>
+                [HttpPost]<br />
+                public IActionResult Post()
+            </td>
+            <td>
+                &lt;form method=&quot;post&quot; asp-route=&quot;NamedController1&quot;&gt;<br />
+                &nbsp;&nbsp;&lt;button type=&quot;submit&quot;&gt;Link&lt;/button&gt;<br />
+                &lt;/form&gt;
+            </td>
+            <td>
+                <form method="post" asp-route="NamedController1">
+                    <button type="submit">Link</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>@Url.RouteUrl("NamedAction1")</td>
+            <td>
+                [Route("[action]", Name = "NamedAction1")]<br />
+                public IActionResult NamedAction()
+            </td>
+            <td>&lt;a asp-route=&quot;NamedAction1&quot;&gt;Link&lt;/a&gt;</td>
+            <td>
+                <a asp-route="NamedAction1">Link</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Named route with token at controller</h3>
+    <pre>[Route("RoutingNameWithActionToken/[action]", Name = "RoutingName[action]")]
+public class RoutingNameWithActionTokenController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.RouteUrl("RoutingNameIndex")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>&lt;a asp-route=&quot;RoutingNameIndex&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-route="RoutingNameIndex">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.RouteUrl("RoutingNameOther")</td>
+            <td>
+                public IActionResult Other()
+            </td>
+            <td>&lt;a asp-route=&quot;RoutingNameOther&quot;&gt;Link&lt;/a&gt;</td>
+            <td>
+                <a asp-route="RoutingNameOther">Link</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Areas basics</h3>
+    <pre>[Area("Area1")]
+[Route("[area]/[controller]/[action]", Name ="[area]_[action]")]
+public class RoutingAreaDefaultController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Content("~/Area1/RoutingAreaDefault/Index")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingAreaDefault&quot; asp-route-area=&quot;Area1&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAreaDefault" asp-route-area="Area1">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Content("~/Area1/RoutingAreaDefault/Index")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>&lt;a asp-route=&quot;Area1_index&quot;&gt;Link&lt;/a&gt;</td>
+            <td>
+                <a asp-route="Area1_index">Link</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3>Renamed areas</h3>
+    <pre>[Area("Area2")]
+[Route("RenamedArea/[action]", Name ="RenamedArea_[action]")]
+public class RoutingAreaRenamedController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Content("~/RenamedArea/Index")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingAreaRenamed&quot; asp-route-area=&quot;Area2&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingAreaRenamed" asp-route-area="Area2">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Content("~/RenamedArea/Index")</td>
+            <td>
+                public IActionResult Index()
+            </td>
+            <td>&lt;a asp-route=&quot;RenamedArea_Index&quot;&gt;Link&lt;/a&gt;</td>
+            <td>
+                <a asp-route="RenamedArea_Index">Link</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<em>TODO: POST PUT DELETE PATCH MERGE verbs</em>
+
+@section styles{
+    <style>
+        .content {
+            font-size: 12px;
+        }
+    </style>
+}
