@@ -1,0 +1,261 @@
+﻿<h1>Return types</h1>
+<div>
+    <h2 class="text-primary">Controller built-in methods</h2>
+    <div>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="2" class="text-center"><h4><b>Views</b></h4></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerPartialView() => PartialView("_TestPartialView");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerPartialView">PartialView</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerView() => View("TestView");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerView">View</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerViewComponent() => ViewComponent("ReturnType", 5);
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerViewComponent">ViewComponent</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><h4><b>Data</b></h4></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerJson() => Json(new { prop1 = 1, prop2 = 2, propList = new { propList1 = "Abc", propList2 = "cDE" } });
+                </td>
+                <td><a asp-controller="ReturnTypes" asp-action="ControllerJson">Json</a></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerContent() => Content("{ id = 1 }", "application/json");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerContent">Content</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><h4><b>Files</b></h4></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerFileContent() => File(System.IO.File.ReadAllBytes("files/ReturnTypeFile.txt"), "text/plain", "ReturnTypeFile.txt");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerFileContent">FileContent</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerFileStream() => File(System.IO.File.OpenRead("files/ReturnTypeFile.txt"), "text/plain", "ReturnTypeFile.txt");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerFileStream">FileStream</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerFileVirtual() => File("~/files/ReturnTypeFile.txt", "plain/text", "ReturnTypeFile.txt");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerFileVirtual">FileVirtual</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerPhysicalFile() => PhysicalFile(environment.ApplicationBasePath + "/wwwroot/files/ReturnTypeFile.txt", "plain/text", "ReturnTypeFile.txt");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerPhysicalFile">PhysicalFile</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><h4><b>Status codes</b></h4></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerCreated() => Created("http://someurl", null);
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerCreated">Created</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerCreatedAtAction() => CreatedAtAction("Message", "ReturnTypes", new { message = "CreatedAtActionResult" }, null);
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerCreatedAtAction">CreatedAtAction</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerCreatedAtRoute() => CreatedAtRoute("ReturnType", null, null);
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerCreatedAtRoute">CreatedAtRoute</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerHttpBadRequest() => HttpBadRequest(new { message = "Bad request message" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerHttpBadRequest">HttpBadRequest</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerHttpNotFound() => HttpNotFound(new { message = "Not found message" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerHttpNotFound">HttpNotFound</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerHttpUnauthorized() => HttpUnauthorized();
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerHttpUnauthorized">HttpUnauthorized</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerOk() => Ok(new { message = "OK message" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerOk">Ok</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><h4><b>Redirects</b></h4></td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerLocalRedirect() => LocalRedirect("~/ReturnTypes");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerLocalRedirect">LocalRedirect</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerLocalRedirectPermanent() => LocalRedirectPermanent("~/ReturnTypes");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerLocalRedirectPermanent">LocalRedirectPermanent</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirect() => Redirect("http://wikipedia.org");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirect">Redirect</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirectPermanent() => RedirectPermanent("http://wikipedia.org");
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirectPermanent">RedirectPermanent</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirectToAction() => RedirectToAction("Message", "ReturnTypes",<br />
+                    new { message = "temporarily redirected via RedirectToActionResult" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirectToAction">RedirectToAction</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirectToActionPermanent() => RedirectToActionPermanent("Message", "ReturnTypes",<br />
+                    new { message = "permanently redirected via RedirectToActionResult" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirectToActionPermanent">RedirectToActionPermanent</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirectToRoute() => RedirectToRoute("Msg", new { message = "temporarily redirected via RedirectToRouteResult" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirectToRoute">RedirectToRoute</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    public IActionResult ControllerRedirectToRoutePermanent() => RedirectToRoutePermanent("Msg", new { message = "permanently redirected via RedirectToRouteResult" });
+                </td>
+                <td>
+                    <a asp-controller="ReturnTypes" asp-action="ControllerRedirectToRoutePermanent">RedirectToRoutePermanent</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div>
+    <h2 class="text-primary">Raw ASP.NET result classes</h2>
+    <div>
+        <h3>Visible</h3>
+        <div><a asp-controller="ReturnTypes" asp-action="Content">Content</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="Empty">Empty</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="Object">Object</a></div>
+
+    </div>
+    <div>
+        <h3>Files</h3>
+        <div><a asp-controller="ReturnTypes" asp-action="FileContent">FileContent</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="FileStream">FileStream</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="PhysicalFile">PhysicalFile</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="VirtualFile">VirtualFile</a></div>
+    </div>
+    <div>
+        <h3>Status codes</h3>
+        <div><a asp-controller="ReturnTypes" asp-action="BadRequestObject">BadRequestObject</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="BadRequest">BadRequest</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="CreatedAtAction">CreatedAtAction</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="CreatedAtRoute">CreatedAtRoute</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="Created">Created</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="NoContent">NoContent</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="NotFoundObject">NotFoundObject</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="NotFound">NotFound</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="OKObject">OKObject</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="OK">OK</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="StatusCode">StatusCode</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="Unauthorized">Unauthorized</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="UnsupportedMediaType">UnsupportedMediaType</a></div>
+    </div>
+    <div>
+        <h3>Redirects</h3>
+        <div><a asp-controller="ReturnTypes" asp-action="LocalRedirectTemp">LocalRedirectTemp</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="LocalRedirectPermanent">LocalRedirectPermanent</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="RedirectTemp">RedirectTemp</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="RedirectPermanent">RedirectPermanent</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="RedirectToAction">RedirectToAction</a></div>
+        <div><a asp-controller="ReturnTypes" asp-action="RedirectToRoute">RedirectToRoute</a></div>
+    </div>
+    <div>
+        <h3>Other</h3>
+        <div><a asp-controller="ReturnTypes" asp-action="Challenge">Challenge</a></div>
+    </div>
+</div>
