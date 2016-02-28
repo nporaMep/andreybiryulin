@@ -1,0 +1,60 @@
+﻿@using AndreyBiryulin.ViewModels
+
+<pre>
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services) =&gt; services
+        .AddSingleton&lt;DI_A&gt;()
+        .AddSingleton&lt;DI_B&gt;()
+        .AddSingleton&lt;DI_C&gt;()
+        .AddSingleton&lt;DI_D&gt;()
+        .AddInstance(DIModelFactory.Instance)
+        .AddSingleton&lt;DIModelCtor&gt;();
+}
+public class DependencyInjectionController : Controller
+{
+    private DI_A di_a;
+    [FromServices]
+    public DI_C DI_C { get; set; }
+    [FromServices]
+    public DIModelFactory DIModelFactory { get; set; }
+    public DependencyInjectionController(DI_A di_a)
+    {
+        this.di_a = di_a;
+    }
+    public IActionResult Index([FromServices] DI_B di_b, [FromServices] DIModelCtor diModelCtor)
+    {
+        ViewData[&quot;DI_A&quot;] = di_a;
+        ViewData[&quot;DI_B&quot;] = di_b;
+        ViewData[&quot;DI_C&quot;] = DI_C;
+        ViewData[&quot;DIModel&quot;] = DIModelFactory;
+        ViewData[&quot;DIModelCtor&quot;] = diModelCtor;
+        return View();
+    }
+}
+public class DI { public string Name =&gt; GetType().Name; }
+public class DI_A : DI { }
+public class DI_B : DI { }
+public class DI_C : DI { }
+public class DI_D : DI { }
+public class DIModelFactory
+{
+    public static DIModelFactory Instance {  get { return new DIModelFactory(); } }
+    DIModelFactory() { }
+}
+public class DIModelCtor
+{
+    public DIModelCtor(DI_D di_d)
+    {
+        this.DI_D = di_d;
+    }
+    public DI_D DI_D { get; set; }
+}
+</pre>
+<ul class="list-group">
+    <li class="list-group-item">@((ViewData["DI_A"] as DI).Name) injected to controller constructor</li>
+    <li class="list-group-item">@((ViewData["DI_B"] as DI).Name) injected to controller action as parameter with [FromServices]</li>
+    <li class="list-group-item">@((ViewData["DI_C"] as DI).Name) injected to controller public property with [FromServices]</li>
+    <li class="list-group-item">@((ViewData["DIModel"] as DIModelFactory).GetType().Name) registered with factory to be used to instantiate it</li>
+    <li class="list-group-item">@((ViewData["DIModelCtor"] as DIModelCtor).GetType().Name) injected to controller action as parameter, @((ViewData["DIModelCtor"] as DIModelCtor).DI_D.Name) injected to DIModel's constructor</li>
+</ul>

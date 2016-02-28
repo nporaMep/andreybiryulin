@@ -43,6 +43,9 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ExcludingAttributes", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
                         <a asp-controller="ExcludingAttributes" asp-action="Index">Excluding attributes</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("DependencyInjection", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="DependencyInjection" asp-action="Index">Dependency injection</a>
+                    </li>
                 </ul>
             </div>
         </div>

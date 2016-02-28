@@ -17,7 +17,13 @@ namespace AndreyBiryulin
             .AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.Formatting = Formatting.Indented)
                 .Services
-            .AddScoped<RoutingInfo>();
+            .AddScoped<RoutingInfo>()
+            .AddSingleton<DI_A>()
+            .AddSingleton<DI_B>()
+            .AddSingleton<DI_C>()
+            .AddSingleton<DI_D>()
+            .AddInstance(DIModelFactory.Instance)
+            .AddSingleton<DIModelCtor>();
 
         public void Configure(IApplicationBuilder app) => app
             .UseIISPlatformHandler()
