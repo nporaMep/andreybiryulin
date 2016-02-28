@@ -330,6 +330,42 @@ public class RoutingAreaRenamedController : Controller</pre>
         </tr>
     </table>
 </div>
+<div>
+    <h3>Routing verbs</h3>
+    <pre>public class RoutingVerbsController : Controller</pre>
+    <table class="table">
+        <tr>
+            <td>@Url.Action("Entities", "RoutingVerbs")</td>
+            <td>
+                [AcceptVerbs("GET", "HEAD")]<br />
+                public IActionResult Entities()
+            </td>
+            <td>&lt;a asp-controller=&quot;RoutingVerbs&quot; asp-action=&quot;Entities&quot;&gt;Link&lt;/a&gt;</td>
+            <td><a asp-controller="RoutingVerbs" asp-action="Entities">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("Entities", "RoutingVerbs", new { id = 5 })</td>
+            <td>
+                [HttpPost]<br />
+                [HttpPatch]<br />
+                [HttpDelete]<br />
+                public IActionResult Entities(int id)
+            </td>
+            <td>
+                &lt;form method=&quot;post&quot; asp-controller=&quot;RoutingVerbs&quot; asp-action=&quot;Entities&quot;&gt;<br />
+                    &lt;input type=&quot;number&quot; value=&quot;5&quot; asp-for=&quot;id&quot; /&gt;<br />
+                    &lt;button type=&quot;submit&quot;&gt;Link&lt;/button&gt;<br />
+                &lt;/form&gt;
+            </td>
+            <td>
+                <form method="post" asp-controller="RoutingVerbs" asp-action="Entities">
+                    <input type="number" value="5" name="id" />
+                    <button type="submit">Link</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 
 <em>TODO: POST PUT DELETE PATCH MERGE verbs</em>
 
