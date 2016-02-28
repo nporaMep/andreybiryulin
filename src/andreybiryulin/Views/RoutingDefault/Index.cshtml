@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td>@Url.Action("OptionalParam", "RoutingDefault", null)</td>
-           <td>public IActionResult OptionalParam(int id)</td>
+            <td>public IActionResult OptionalParam(int id)</td>
             <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalParam&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingDefault" asp-action="OptionalParam">Link</a></td>
         </tr>
@@ -41,18 +41,29 @@
             <td>public IActionResult OptionalParam(int id)</td>
             <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalParam&quot; asp-route-id=&quot;999&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingDefault" asp-action="OptionalParam" asp-route-id="999">Link</a></td>
-      </tr>
+        </tr>
         <tr>
             <td>@Url.Action("OptionalMultipleParams", "RoutingDefault", new { id = 999, anotherId = 555 })</td>
             <td>public IActionResult OptionalMultipleParams(int id, int anotherId)</td>
             <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalMultipleParams&quot; asp-route-id=&quot;999&quot; asp-route-anotherId=&quot;555&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingDefault" asp-action="OptionalMultipleParams" asp-route-id="999" asp-route-anotherId="555">Link</a></td>
-      </tr>
+        </tr>
         <tr>
             <td>@Url.Action("OptionalMultipleParams", "RoutingDefault", new { anotherId = 555 })</td>
             <td>public IActionResult OptionalMultipleParams(int id, int anotherId)</td>
             <td>&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;OptionalMultipleParams&quot; asp-route-anotherId=&quot;555&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingDefault" asp-action="OptionalMultipleParams" asp-route-anotherId="555">Link</a></td>
+        </tr>
+        <tr>
+            <td>@Url.Action("NamedAction", "RoutingDefault")</td>
+            <td>
+                [ActionName("NamedAction")]<br />
+                public IActionResult AmbigiousActionName()
+            </td>
+            <td>&lt;div&gt;&lt;a asp-controller=&quot;RoutingDefault&quot; asp-action=&quot;NamedAction&quot;&gt;Link&lt;/a&gt;&lt;/div&gt;</td>
+            <td>
+                <div><a asp-controller="RoutingDefault" asp-action="NamedAction">Link</a></div>
+            </td>
         </tr>
     </table>
 </div>
@@ -62,37 +73,47 @@
     <table class="table">
         <tr>
             <td>@Url.Action("NotDefaultIndex", "RoutingAction", null)</td>
-            <td>[Route("[controller]")]<br />
-public IActionResult NotDefaultIndex()</td>
+            <td>
+                [Route("[controller]")]<br />
+                public IActionResult NotDefaultIndex()
+            </td>
             <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;NotDefaultIndex&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingAction" asp-action="NotDefaultIndex">Link</a></td>
         </tr>
         <tr>
             <td>@Url.Action("ReroutedToAnotherPath", "RoutingAction", null)</td>
-            <td>[Route("AnotherPath/AnotherAction")]<br />
-public IActionResult ReroutedToAnotherPath()</td>
+            <td>
+                [Route("AnotherPath/AnotherAction")]<br />
+                public IActionResult ReroutedToAnotherPath()
+            </td>
             <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;ReroutedToAnotherPath&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingAction" asp-action="ReroutedToAnotherPath">Link</a></td>
         </tr>
         <tr>
             <td>@Url.Action("MultiplePaths", "RoutingAction", null)</td>
-            <td>[Route("[controller]/Path1")]<br />
-[Route("[controller]/Path2")]<br />
-public IActionResult MultiplePaths()</td>
+            <td>
+                [Route("[controller]/Path1")]<br />
+                [Route("[controller]/Path2")]<br />
+                public IActionResult MultiplePaths()
+            </td>
             <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;MultiplePaths&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingAction" asp-action="MultiplePaths">Link</a></td>
         </tr>
         <tr>
             <td>@Url.Action("MandatoryParam", "RoutingAction", new { mandatoryParam = "my param text" })</td>
-            <td>[Route("[controller]/[action]/{mandatoryParam}")]<br />
-public IActionResult MandatoryParam(string mandatoryParam)</td>
+            <td>
+                [Route("[controller]/[action]/{mandatoryParam}")]<br />
+                public IActionResult MandatoryParam(string mandatoryParam)
+            </td>
             <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;MandatoryParam&quot; asp-route-mandatoryParam=&quot;my param text&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingAction" asp-action="MandatoryParam" asp-route-mandatoryParam="my param text">Link</a></td>
         </tr>
         <tr>
             <td>@Url.Action("GreedyParam", "RoutingAction", new { greedyParam = "my/greedy/param" })</td>
-            <td>[Route("[controller]/[action]/{*greedyParam}")]<br />
-public IActionResult GreedyParam(string greedyParam)</td>
+            <td>
+                [Route("[controller]/[action]/{*greedyParam}")]<br />
+                public IActionResult GreedyParam(string greedyParam)
+            </td>
             <td>&lt;a asp-controller=&quot;RoutingAction&quot; asp-action=&quot;GreedyParam&quot; asp-route-greedyParam=&quot;my/greedy/param&quot;&gt;Link&lt;/a&gt;</td>
             <td><a asp-controller="RoutingAction" asp-action="GreedyParam" asp-route-greedyParam="my/greedy/param">Link</a></td>
         </tr>
@@ -353,8 +374,8 @@ public class RoutingAreaRenamedController : Controller</pre>
             </td>
             <td>
                 &lt;form method=&quot;post&quot; asp-controller=&quot;RoutingVerbs&quot; asp-action=&quot;Entities&quot;&gt;<br />
-                    &lt;input type=&quot;number&quot; value=&quot;5&quot; asp-for=&quot;id&quot; /&gt;<br />
-                    &lt;button type=&quot;submit&quot;&gt;Link&lt;/button&gt;<br />
+                &lt;input type=&quot;number&quot; value=&quot;5&quot; asp-for=&quot;id&quot; /&gt;<br />
+                &lt;button type=&quot;submit&quot;&gt;Link&lt;/button&gt;<br />
                 &lt;/form&gt;
             </td>
             <td>

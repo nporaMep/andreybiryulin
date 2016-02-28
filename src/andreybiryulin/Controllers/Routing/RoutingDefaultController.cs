@@ -14,5 +14,9 @@ namespace AndreyBiryulin.Controllers.Routing
         public IActionResult Other() => View("RoutingInfo", routingInfo);
         public IActionResult OptionalParam(int id) => View("RoutingInfo", routingInfo);
         public IActionResult OptionalMultipleParams(int id, int anotherId) => View("RoutingInfo", routingInfo);
+
+        [ActionName("NamedAction")]
+        public IActionResult AmbigiousActionName() => View("RoutingInfo", routingInfo);
+
     }
 }

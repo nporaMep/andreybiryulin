@@ -40,6 +40,9 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ControllerProperties", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
                         <a asp-controller="ControllerProperties" asp-action="Index">Controller properties</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ExcludingAttributes", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="ExcludingAttributes" asp-action="Index">Excluding attributes</a>
+                    </li>
                 </ul>
             </div>
         </div>

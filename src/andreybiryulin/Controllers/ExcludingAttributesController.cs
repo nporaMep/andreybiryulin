@@ -6,12 +6,11 @@ using Microsoft.AspNet.Mvc;
 
 namespace AndreyBiryulin.Controllers
 {
-    public class HomeController : Controller
+    public class ExcludingAttributesController : Controller
     {
-        public IActionResult Index() =>
-            View();
+        public IActionResult Index() => View();
 
-        public IActionResult Error() =>
-            View();
+        [NonAction]
+        public int NonAction() => 42;
     }
 }

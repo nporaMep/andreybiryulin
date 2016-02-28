@@ -1,0 +1,22 @@
+﻿<pre>
+[NonController]
+public class NonControllerController : Controller
+{
+    public IActionResult Index() => View();
+}
+public class ExcludingAttributesController : Controller
+{
+    [NonAction]
+    public int NonAction() => 42;
+}
+</pre>
+
+<div class="text-danger">Not working links</div>
+<ul class="list-group">
+    <li class="list-group-item">
+        <a href="/NonController/Index">NonController/Index</a>
+    </li>
+    <li class="list-group-item">
+        <a href="ExcludingAttributes/NonAction">ExcludingAttributes/NonAction</a>
+    </li>
+</ul>

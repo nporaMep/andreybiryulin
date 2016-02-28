@@ -30,7 +30,12 @@ namespace AndreyBiryulin
                 .MapRoute(
                     "actions",
                     "{controller=Home}/{action=Index}/{id?}")
+                .MapRoute(
+                    "404 Page Not Found",
+                    "{*url}",
+                    new { controller = "Home", action = "Error" })
             );
+
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

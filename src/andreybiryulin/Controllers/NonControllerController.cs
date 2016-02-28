@@ -6,12 +6,9 @@ using Microsoft.AspNet.Mvc;
 
 namespace AndreyBiryulin.Controllers
 {
-    public class HomeController : Controller
+    [NonController]
+    public class NonControllerController : Controller
     {
-        public IActionResult Index() =>
-            View();
-
-        public IActionResult Error() =>
-            View();
+        public IActionResult Index() => View();
     }
 }
