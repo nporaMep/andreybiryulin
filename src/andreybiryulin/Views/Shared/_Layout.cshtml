@@ -37,11 +37,14 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ReturnTypes", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
                         <a asp-controller="ReturnTypes" asp-action="Index">Return types</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ControllerProperties", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="ControllerProperties" asp-action="Index">Controller properties</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid content">
         @RenderBody()
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>

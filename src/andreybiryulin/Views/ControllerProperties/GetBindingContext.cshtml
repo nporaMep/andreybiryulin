@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNet.Mvc.ModelBinding
+@model ActionBindingContext
+<pre>
+public IActionResult GetBindingContext() => View(BindingContext);
+</pre>
+<table class="table table-bordered">
+    <tr>
+        <th colspan="5" class="text-center">BindingContext</th>
+    </tr>
+    <tr class="text-center">
+        <td><a href="#ModelBinder">ModelBinder</a></td>
+        <td><a href="#InputFormatters">InputFormatters</a></td>
+        <td><a href="#OutputFormatters">OutputFormatters</a></td>
+        <td><a href="#ValueProvider">ValueProvider</a></td>
+        <td><a href="#ValidatorProvider">ValidatorProvider</a></td>
+    </tr>
+</table>
+
+<a id="ModelBinder"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">ModelBinder</th>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                @{
+                    var list = Model.ModelBinder.GetType().GetProperty("ModelBinders").GetValue(Model.ModelBinder) as IReadOnlyList<IModelBinder>;
+                    foreach (var item in list) {
+                        <li>@item.ToString()</li>
+                    }
+                }
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<a id="InputFormatters"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">InputFormatters</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                @foreach (var formatter in Model.InputFormatters) {
+                    <li>@formatter.ToString()</li>
+                }
+            </ul>
+        </td>
+    </tr>
+</table>
+<a id="OutputFormatters"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">OutputFormatters</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                @foreach (var formatter in Model.OutputFormatters) {
+                    <li>@formatter.ToString()</li>
+                }
+            </ul>
+        </td>
+    </tr>
+</table>
+<a id="ValueProvider"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">ValueProvider</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                @{
+                    {
+                        var enumerator = Model.ValueProvider.GetType().GetMethod("GetEnumerator").Invoke(Model.ValueProvider, null);
+                        var current = enumerator.GetType().GetProperty("Current");
+                        var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                        while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                            var value = current.GetValue(enumerator, null);
+                            <li>@value.ToString()</li>
+                        }
+                    }
+                }
+            </ul>
+
+        </td>
+    </tr>
+</table>
+<a id="ValidatorProvider"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">ValidatorProvider</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                @{
+                    {
+                        var providers = Model.ValidatorProvider.GetType().GetProperty("ValidatorProviders").GetValue(Model.ValidatorProvider);
+                        var enumerator = providers.GetType().GetMethod("GetEnumerator").Invoke(providers, null);
+                        var current = enumerator.GetType().GetProperty("Current");
+                        var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                        while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                            var value = current.GetValue(enumerator, null);
+                            <li>@value.ToString()</li>
+                        }
+                    }
+                }
+            </ul>
+        </td>
+    </tr>
+</table>

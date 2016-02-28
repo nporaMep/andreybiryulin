@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNet.Mvc.ModelBinding.Validation
+@model IObjectModelValidator
+
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th class="text-center">ObjectValidator</th>
+    </tr>
+    <tr>
+        <th class="text-center">Exclude filters</th>
+    </tr>
+    <tr>
+        <td>
+            <ul class="list-group">
+                @{
+                    var filters = Model.GetType().GetField("_excludeFilters", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(Model);
+                    var enumerator = filters.GetType().GetMethod("GetEnumerator").Invoke(filters, null);
+                    var current = enumerator.GetType().GetProperty("Current");
+                    var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                    while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                        var value = current.GetValue(enumerator, null);
+                        <li class="list-group-item">
+                            @if (value is DefaultTypeBasedExcludeFilter) {
+                                var defaulTypeBasedExcudeFilter = value as DefaultTypeBasedExcludeFilter;
+                                <div>@value.ToString()</div>
+                                @:Excluded type = <b>@defaulTypeBasedExcudeFilter.ExcludedType.ToString()</b>
+                            } else {
+                                @value.ToString()
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,11 @@
+﻿@model dynamic
+
+<pre>
+public IActionResult GetViewBag()
+{
+    ViewBag.CustomProperty = "CustomPropertyValue";
+    return View(ViewBag);
+}
+</pre>
+
+<div>@@Model.CustomProperty = @Model.CustomProperty</div> 

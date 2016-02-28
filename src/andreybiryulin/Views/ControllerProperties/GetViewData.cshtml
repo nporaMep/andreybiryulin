@@ -1,0 +1,9 @@
+﻿@model RoutingInfo
+<pre>
+public IActionResult GetViewData()
+{
+    ViewData["DataInAdditonToModel"] = "some data";
+    return View(RoutingInfo);
+}
+</pre>
+@@ViewData["DataInAdditonToModel"] = @ViewData["DataInAdditonToModel"]

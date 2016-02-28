@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Mvc.ModelBinding
+@model IModelMetadataProvider
+
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th class="text-center" colspan="2">MetadataProvider</th>
+    </tr>
+    <tr>
+        <td>
+            DetailsProvider
+        </td>
+        <td>
+            <ul>
+                @{
+                    var detailsProvider = Model.GetType().GetProperty("DetailsProvider", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(Model);
+                    var providers = detailsProvider.GetType().GetField("_providers", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(detailsProvider);
+                    var enumerator = providers.GetType().GetMethod("GetEnumerator").Invoke(providers, null);
+                    var current = enumerator.GetType().GetProperty("Current");
+                    var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                    while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                        var value = current.GetValue(enumerator, null);
+                        <li>@value.ToString()</li>
+                    }
+                }
+            </ul>
+        </td>
+    </tr>
+</table>

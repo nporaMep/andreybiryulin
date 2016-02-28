@@ -1,0 +1,37 @@
+﻿@model IServiceProvider
+
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">Resolver</th>
+    </tr>
+    <tr>
+        <th colspan="2" class="text-center">_resolvedServices</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table class="table table-condensed table-striped table-bordered">
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+                @{
+                    var dictionary = Model.GetType().GetField("_resolvedServices", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(Model);
+                    var enumerator = dictionary.GetType().GetMethod("GetEnumerator").Invoke(dictionary, null);
+                    var current = enumerator.GetType().GetProperty("Current");
+                    var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                    while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                        var value = current.GetValue(enumerator, null);
+                        <tr>
+                            <td>
+                                @value.GetType().GetProperty("Key").GetValue(value, null)
+                            </td>
+                            <td>
+                                @value.GetType().GetProperty("Value").GetValue(value, null)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,118 @@
+﻿@using Microsoft.AspNet.Mvc.ActionConstraints
+@using Microsoft.AspNet.Mvc.Controllers
+@model ActionContext
+
+<pre>
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services) =&gt; services
+        .AddMvc().Services
+        .AddScoped&lt;RoutingInfo&gt;();
+}
+public class ControllerPropertiesController : Controller
+{
+    [FromServices]
+    public RoutingInfo RoutingInfo { get; set; }
+    [HttpGet]
+    [Route(&quot;/[action]/{id}&quot;, Name =&quot;ActionContextRoute&quot;, Order = int.MinValue)]
+    public IActionResult GetActionContext(int id) =&gt; View(&quot;GetActionContext&quot;, ActionContext);
+}
+</pre>
+<table class="table table-bordered">
+    <tr>
+        <th colspan="4" class="text-center">ActionContext</th>
+    </tr>
+    <tr class="text-center">
+        <td><a href="#ActionDescriptor">ActionDescriptor</a></td>
+        <td><a asp-action="GetHttpContext">HttpContext</a></td>
+        <td><a asp-action="GetModelState">ModelState</a></td>
+        <td><a asp-controller="RoutingDefault" asp-action="Index">RouteData</a></td>
+   </tr>
+</table>
+<a id="ActionDescriptor"></a>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th colspan="2" class="text-center">ActionDescriptor</th>
+    </tr>
+    <tr>
+        <td>DisplayName</td>
+        <td>@Model.ActionDescriptor.DisplayName</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>@Model.ActionDescriptor.Name</td>
+    </tr>
+    <tr>
+        <td>ControllerName</td>
+        <td>@((Model.ActionDescriptor as ControllerActionDescriptor).ControllerName)</td>
+    </tr>
+    <tr>
+        <td>ControllerTypeInfo</td>
+        <td>@((Model.ActionDescriptor as ControllerActionDescriptor).ControllerTypeInfo)</td>
+    </tr>
+    <tr>
+        <td>Id</td>
+        <td>@Model.ActionDescriptor.Id</td>
+    </tr>
+    <tr>
+        <td>ActionConstraints</td>
+        <td>
+            @foreach (var constraint in Model.ActionDescriptor.ActionConstraints) {
+                @if (constraint is HttpMethodConstraint) {
+                    var httpConstraint = constraint as HttpMethodConstraint;
+                    <div>Order = @httpConstraint.Order</div>
+                    @foreach (var method in httpConstraint.HttpMethods) {
+                        <div>Method = @method</div>
+                    }
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>AttributeRouteInfo</td>
+        <td>
+            <div>Name = @Model.ActionDescriptor.AttributeRouteInfo.Name</div>
+            <div>Template = @Model.ActionDescriptor.AttributeRouteInfo.Template</div>
+            <div>Order = @Model.ActionDescriptor.AttributeRouteInfo.Order</div>
+        </td>
+    </tr>
+    <tr>
+        <td>BoundProperties</td>
+        <td>
+            @foreach (var property in Model.ActionDescriptor.BoundProperties) {
+                <div>Name = @property.Name</div>
+                <div>ParameterType = @property.ParameterType</div>
+                <div>BindingSource = @property.BindingInfo.BindingSource</div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Parameters</td>
+        <td>
+            @foreach (var parameter in Model.ActionDescriptor.Parameters) {
+                var controllerParameter = parameter as ControllerParameterDescriptor;
+                <div>Name = @controllerParameter.Name</div>
+                <div>ParameterType = @controllerParameter.ParameterInfo</div>
+                <div>BindingSource = @controllerParameter.ParameterType</div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>RouteConstraints</td>
+        <td>
+            @foreach (var constraint in Model.ActionDescriptor.RouteConstraints) {
+                <div>KeyHandling = @constraint.KeyHandling</div>
+                <div>RouteKey = @constraint.RouteKey</div>
+                <div>RouteValue = @constraint.RouteValue</div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>RouteValueDefaults</td>
+        <td>
+            @foreach (var routeValueDefault in Model.ActionDescriptor.RouteValueDefaults) {
+                <div>[@routeValueDefault.Key, @(routeValueDefault.Value ?? "null")]</div>
+            }
+        </td>
+    </tr>
+</table>

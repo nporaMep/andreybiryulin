@@ -16,7 +16,7 @@ namespace AndreyBiryulin
         public void ConfigureServices(IServiceCollection services) => services
             .AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.Formatting = Formatting.Indented)
-            .Services
+                .Services
             .AddScoped<RoutingInfo>();
 
         public void Configure(IApplicationBuilder app) => app
@@ -26,12 +26,10 @@ namespace AndreyBiryulin
             .UseMvc(routes => routes
                 .MapRoute(
                     "area",
-                    "{area:exists}/{controller}/{action}",
-                    new { controller = "Home", action = "Index" })
+                    "{area:exists}/{controller=Home}/{action=Index}")
                 .MapRoute(
                     "actions",
-                    "{controller}/{action}",
-                    new { controller = "Home", action = "Index" })
+                    "{controller=Home}/{action=Index}/{id?}")
             );
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }

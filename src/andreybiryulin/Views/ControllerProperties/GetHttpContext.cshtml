@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNet.Http
+@model HttpContext
+@section styles {
+    <style>
+        .content {
+            font-size: 12px;
+        }
+    </style>
+}
+<a id="HttpContext"></a>
+    <table class="table table-condensed table-striped table-bordered">
+        <tr>
+            <th colspan="2" class="text-center">HttpContext</th>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center">ApplicationServices</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table table-condensed table-striped table-bordered">
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                    @{
+                        var dictionary = Model.ApplicationServices.GetType().GetField("_resolvedServices", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(Model.ApplicationServices);
+                        var enumerator = dictionary.GetType().GetMethod("GetEnumerator").Invoke(dictionary, null);
+                        var current = enumerator.GetType().GetProperty("Current");
+                        var moveNext = enumerator.GetType().GetMethod("MoveNext");
+                        while (moveNext.Invoke(enumerator, null).Equals(true)) {
+                            var value = current.GetValue(enumerator, null);
+                            <tr>
+                                <td>
+                                    @value.GetType().GetProperty("Key").GetValue(value, null)
+                                </td>
+                                <td>
+                                    @value.GetType().GetProperty("Value").GetValue(value, null)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center">Connection</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table table-condensed table-striped table-bordered">
+                    <tr>
+                        <td>IsLocal</td>
+                        <td>@Model.Connection.IsLocal</td>
+                    </tr>
+                    <tr>
+                        <td>LocalIpAddress</td>
+                        <td>@Model.Connection.LocalIpAddress</td>
+                    </tr>
+                    <tr>
+                        <td>LocalPort</td>
+                        <td>@Model.Connection.LocalPort</td>
+                    </tr>
+                    <tr>
+                        <td>RemoteIpAddress</td>
+                        <td>@Model.Connection.RemoteIpAddress</td>
+                    </tr>
+                    <tr>
+                        <td>RemotePort</td>
+                        <td>@Model.Connection.RemotePort</td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center">Features</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table table-condensed table-striped table-bordered">
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                    @foreach (var feature in @Model.Features) {
+                        <tr>
+                            <td>
+                                @feature.Key
+                            </td>
+                            <td>
+                                @feature.Value
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><a asp-action="GetHttpRequest">Request</a></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a asp-action="GetHttpResponse">Response</a></td>
+        </tr>
+        <tr>
+            <td>TraceIdentifier</td>
+            <td>
+                @Model.TraceIdentifier
+            </td>
+        </tr>
+    </table>

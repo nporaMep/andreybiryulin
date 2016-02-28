@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Mvc.ModelBinding
+@model ModelStateDictionary
+
+<div class="table-responsive">
+    <table class="table table-condensed table-striped table-bordered">
+        <tr>
+            <th colspan="2" class="text-center">ModelState</th>
+        </tr>
+        <tr>
+            <td>ValidationState</td>
+            <td>@Model.ValidationState</td>
+        </tr>
+        <tr>
+            <td>IsValid</td>
+            <td>@Model.IsValid</td>
+        </tr>
+        <tr>
+            <td>Values</td>
+            <td>
+                <table class="table table-condensed table-striped table-bordered">
+                    @foreach (var kvp in @Model) {
+                        <tr>
+                            <td>
+                                @kvp.Key
+                            </td>
+                            <td>
+                                <div>RawValue - @kvp.Value.RawValue</div>
+                                <div>AttemptedValue - @kvp.Value.AttemptedValue</div>
+                                <div>ValidationState - @kvp.Value.ValidationState</div>
+                                <div>ErrorMessage - @kvp.Value.Errors.Aggregate(string.Empty, (res, e) => res += e.ErrorMessage)</div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>MaxAllowedErrors</td>
+            <td>
+                @Model.MaxAllowedErrors
+            </td>
+        </tr>
+        <tr>
+            <td>HasReachedMaxErrors</td>
+            <td>
+                @Model.HasReachedMaxErrors
+            </td>
+        </tr>
+    </table>
+</div>
