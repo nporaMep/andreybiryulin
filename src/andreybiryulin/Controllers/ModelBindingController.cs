@@ -39,6 +39,6 @@ namespace AndreyBiryulin.Controllers
             return View();
         }
 
-        public IActionResult FormFile(IFormFile formFile) => View(formFile)
+        public IActionResult FormFile(IFormFile formFile) => View(formFile);
     }
 }

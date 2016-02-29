@@ -1,0 +1,83 @@
+﻿<ul class="list-group">
+    <li class="list-group-item">
+        <div class="lead">Consumes</div>
+        <pre>[Consumes("application/json")]
+[ActionName("Consumes")]
+public IActionResult ConsumesJSON() => Content(ActionContext.ActionDescriptor.Name);
+[Consumes("application/xml")]
+[ActionName("Consumes")]
+public IActionResult ConsumesXML() => Content(ActionContext.ActionDescriptor.Name);</pre>
+        <pre>
+&lt;button onclick=&quot;consumesJSON()&quot; class=&quot;btn btn-primary&quot;&gt;JSON&lt;/button&gt;
+&lt;button onclick=&quot;consumesXML()&quot; class=&quot;btn btn-primary&quot;&gt;XML&lt;/button&gt;
+            
+function consumesJSON() {
+    var data = "42";
+    $.ajax({
+        type: "POST",
+        url: "/ConsumesProduces/Consumes",
+        contentType: 'application/json',
+        data: data,
+        success: function (r) { alert(r) }
+    });
+}
+function consumesXML() {
+    var data = "42";
+    $.ajax({
+        type: "POST",
+        url: "/ConsumesProduces/Consumes",
+        contentType: 'application/xml',
+        data: data,
+        success: function (r) { alert(r) }
+    });
+}</pre>
+        <div>
+            <button onclick="consumesJSON()" class="btn btn-primary">JSON</button>
+            <button onclick="consumesXML()" class="btn btn-primary">XML</button>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="lead">Produces</div>
+        <pre>[Produces("application/xml")]
+public object ProducesXML() => new ProducesSample { prop1 = 42, prop2 = "foo" };
+[Produces("application/json")]
+public object ProducesJSON() => new ProducesSample { prop1 = 42, prop2 = "foo" };</pre>
+        <pre>
+&lt;a asp-action=&quot;ProducesJSON&quot;&gt;JSON&lt;/a&gt;
+&lt;a asp-action=&quot;ProducesXML&quot;&gt;XML&lt;/a&gt;</pre>
+        <div>
+            <a class="btn btn-default" asp-action="ProducesJSON">JSON</a>
+            <a class="btn btn-default" asp-action="ProducesXML">XML</a>
+        </div>
+    </li>
+</ul>
+
+@section scripts {
+    <script type="text/javascript">
+        function consumesJSON() {
+            var data = "42";
+            $.ajax({
+                type: "POST",
+                url: "/ConsumesProduces/Consumes",
+                contentType: 'application/json',
+                data: data,
+                success: function (r) {
+                    alert(r)
+                }
+            });
+        }
+        function consumesXML() {
+            var data = "42";
+            $.ajax({
+                type: "POST",
+                url: "/ConsumesProduces/Consumes",
+                contentType: 'application/xml',
+                data: data,
+                success: function (r) {
+                    alert(r)
+                }
+            });
+        }
+    </script>
+}

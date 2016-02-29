@@ -49,6 +49,9 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ModelBinding", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
                         <a asp-controller="ModelBinding" asp-action="Index">Model binding</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ConsumesProduces", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="ConsumesProduces" asp-action="Index">Consumes / Produces</a>
+                    </li>
                 </ul>
             </div>
         </div>
