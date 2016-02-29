@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNet.Http
+@{
+    var formData = ViewBag.FormData as IFormCollection;
+    var text1 = ViewBag.text1 as string;
+    var text2 = ViewBag.text2 as string;
+    var number1 = (int)ViewBag.number1;
+}
+<pre>
+public IActionResult FromForm(IFormCollection formData, [FromForm] string text1, [FromForm] int number1, [FromForm] string text2)
+
+&lt;form asp-action=&quot;FromForm&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;text1&quot; value=&quot;text1 value&quot; /&gt;
+    &lt;input type=&quot;text&quot; name=&quot;text2&quot; value=&quot;text2 value&quot; /&gt;
+    &lt;input type=&quot;number&quot; name=&quot;number1&quot; value=&quot;42&quot; /&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</pre>
+<ul class="list-group">
+    <li class="list-group-item">
+        text1 = "@text1"
+    </li>
+    <li class="list-group-item">
+        text2 = "@text1"
+    </li>
+    <li class="list-group-item">
+        number1 = @number1
+    </li>
+    <li class="list-group-item">
+        <div><b>IFormCollection:</b></div>
+        @foreach (var kvp in formData) {
+            <div>
+                @kvp.Key - @kvp.Value
+            </div>
+        }
+    </li>
+</ul>

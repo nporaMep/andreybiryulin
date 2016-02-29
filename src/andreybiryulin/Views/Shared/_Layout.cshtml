@@ -46,6 +46,9 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("DependencyInjection", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
                         <a asp-controller="DependencyInjection" asp-action="Index">Dependency injection</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString().Equals("ModelBinding", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <a asp-controller="ModelBinding" asp-action="Index">Model binding</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -55,5 +58,6 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

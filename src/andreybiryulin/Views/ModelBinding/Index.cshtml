@@ -1,0 +1,89 @@
+﻿<ul class="list-group">
+    <li class="list-group-item">
+        <div class="lead">From Query</div>
+        <pre>public IActionResult FromQuery([FromQuery] int FromQuery)</pre>
+        <div>
+            &lt;a asp-action=&quot;FromQuery&quot; asp-route-FromQuery=&quot;42&quot;&gt;Link&lt;/a&gt;
+        </div>
+        <div>
+            <a asp-action="FromQuery" asp-route-FromQuery="42">Link</a>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="lead">From Route</div>
+        <pre>public IActionResult FromRoute([FromRoute(Name ="id")] int FromRoute)</pre>
+        <div>
+            &lt;a asp-action=&quot;FromRoute&quot; asp-route-id=&quot;42&quot;&gt;Link&lt;/a&gt;
+        </div>
+        <div>
+            <a asp-action="FromRoute" asp-route-id="42">Link</a>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="lead">From Body</div>
+        <pre>&lt;form onsubmit=&quot;fromBody()&quot;&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+function fromBody() {
+    var data = &quot;42&quot;;
+    $.ajax({
+        type: &quot;POST&quot;,
+        url: &quot;/ModelBinding/FromBody&quot;,
+        contentType: &#39;application/json&#39;,
+        data: data,
+        success: function (r) {
+            alert(r)
+        }
+    });
+}
+</pre>
+        <form onsubmit="fromBody()">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </li>
+    <li class="list-group-item">
+        <div class="lead">From Form</div>
+        <pre>
+&lt;form asp-action=&quot;FromForm&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;text1&quot; value=&quot;text1 value&quot; /&gt;
+    &lt;input type=&quot;text&quot; name=&quot;text2&quot; value=&quot;text2 value&quot; /&gt;
+    &lt;input type=&quot;number&quot; name=&quot;number1&quot; value=&quot;42&quot; /&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</pre>
+        <form asp-action="FromForm" method="post" class="form-inline">
+            <input class="form-control" type="text" name="text1" value="text1 value" />
+            <input class="form-control" type="text" name="text2" value="text2 value" />
+            <input class="form-control" type="number" name="number1" value="42" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </li>
+    <li class="list-group-item">
+        <div class="lead">IFormFile</div>
+        <pre>
+&lt;form asp-action=&quot;FormFile&quot; method=&quot;post&quot; class=&quot;form-inline&quot; enctype=&quot;multipart/form-data&quot;&gt;
+    &lt;input class=&quot;form-control&quot; type=&quot;file&quot; name=&quot;formFile&quot; /&gt;
+    &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</pre>
+        <form asp-action="FormFile" method="post" class="form-inline" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="formFile" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </li>
+</ul>
+
+@section scripts {
+    <script type="text/javascript">
+        function fromBody() {
+            var data = "42";
+            $.ajax({
+                type: "POST",
+                url: "/ModelBinding/FromBody",
+                contentType: 'application/json',
+                data: data,
+                success: function (r) {
+                    alert(r)
+                }
+            });
+        }
+    </script>
+}
